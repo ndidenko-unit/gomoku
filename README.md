@@ -1,0 +1,3 @@
+# gomoku
+
+sh start.sh
