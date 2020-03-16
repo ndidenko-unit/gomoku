@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-
 public class BoardGUI extends JPanel {
 	
 	/**

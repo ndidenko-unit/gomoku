@@ -39,31 +39,24 @@ public class Game {
 					// Handle the mouse click in another thread, so that we do not held the event dispatch thread busy.
 					Thread mouseClickThread = new Thread(new MouseClickHandler(arg0));
 					mouseClickThread.start();
-					
-					
 				}
 			}
 
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
-			
 		});
 	}
 	/*
@@ -136,20 +129,18 @@ public class Game {
 				board.printWinner(0); // Prints "TIED!"
 				gameFinished = true;
 				return;
-				
 			}
-			
 			isPlayersTurn = true;
 		}
-		
 	}
+
 	private int checkWinner() {
 		if(Minimax.getScore(board, true, false) >= Minimax.getWinScore()) return 2;
 		if(Minimax.getScore(board, false, true) >= Minimax.getWinScore()) return 1;
 		return 0;
 	}
+
 	private boolean playMove(int posX, int posY, boolean black) {
 		return board.addStone(posX, posY, black);
 	}
-	
 }

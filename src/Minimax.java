@@ -63,11 +63,8 @@ public class Minimax {
 		evaluationCount=0;
 		
 		return move;
-		
-		
 	}
-	
-	
+
 	/*
 	 * alpha : Best AI Move (Max)
 	 * beta : Best Player Move (Min)
@@ -89,8 +86,7 @@ public class Minimax {
 		}
 		
 		Object[] bestMove = new Object[3];
-		
-		
+
 		if(max) {
 			bestMove[0] = -1.0;
 			// Iterate for all possible moves that can be made.
@@ -117,7 +113,6 @@ public class Minimax {
 					bestMove[2] = move[1];
 				}
 			}
-			
 		}
 		else {
 			bestMove[0] = 100000000.0;
@@ -202,11 +197,9 @@ public class Minimax {
 			}
 			if(consecutive > 0) {
 				score += getConsecutiveSetScore(consecutive, blocks, forBlack == playersTurn);
-				
 			}
 			consecutive = 0;
 			blocks = 2;
-			
 		}
 		return score;
 	}
@@ -252,6 +245,7 @@ public class Minimax {
 		}
 		return score;
 	}
+
 	public static  int evaluateDiagonal(int[][] boardMatrix, boolean forBlack, boolean playersTurn ) {
 		
 		int consecutive = 0;
@@ -328,7 +322,6 @@ public class Minimax {
 		    }
 		    if(consecutive > 0) {
 				score += getConsecutiveSetScore(consecutive, blocks, forBlack == playersTurn);
-				
 			}
 			consecutive = 0;
 			blocks = 2;
