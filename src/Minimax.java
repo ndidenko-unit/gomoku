@@ -57,7 +57,10 @@ public class Minimax {
 				move[1] = (Integer)(bestMove[2]);
 			}
 		}
-		System.out.println("Cases calculated: " + evaluationCount + " Calculation time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+		String text = "Cases calculated: " + evaluationCount + " Calculation time: " + (System.currentTimeMillis() - startTime) + " ms";
+		System.out.println(text);
+		board.getGUI().getInfoBox().setInfo(text);
 		board.thinkingFinished();
 		
 		evaluationCount=0;

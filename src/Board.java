@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Board {
 	
-	private BoardGUI gui;
+	private GameView gui;
 	private int[][] boardMatrix; // 0: Empty 1: White 2: Black
 	
 	
 	public Board(int sideLength, int boardSize) {
-		gui = new BoardGUI(sideLength, boardSize);
+		gui = new GameView(sideLength, boardSize);
 		boardMatrix = new int[boardSize][boardSize];
 		
 	}
@@ -35,7 +35,7 @@ public class Board {
 		// Check whether the cell is empty or not
 		if(boardMatrix[posY][posX] != 0) return false;
 		
-		gui.drawStone(posX, posY, black);
+		gui.getGameArea().drawStone(posX, posY, black);
 		boardMatrix[posY][posX] = black ? 2 : 1;
 		return true;
 		
@@ -109,22 +109,22 @@ public class Board {
 	}
 	
 	public void startListening(MouseListener listener) {
-		gui.attachListener(listener);
+		gui.getGameArea().attachListener(listener);
 	}
-	public BoardGUI getGUI() {
+	public GameView getGUI() {
 		return gui;
 	}
 	public int getRelativePos(int x) {
-		return gui.getRelativePos(x);
+		return gui.getGameArea().getRelativePos(x);
 	}
 	public void printWinner(int winner) {
-		gui.printWinner(winner);
+		gui.getGameArea().printWinner(winner);
 	}
 	public void thinkingStarted() {
-		gui.setAIThinking(true);
+		gui.getGameArea().setAIThinking(true);
 	}
 	public void thinkingFinished() {
-		gui.setAIThinking(false);
+		gui.getGameArea().setAIThinking(false);
 	}
 	
 	

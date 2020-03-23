@@ -1,17 +1,9 @@
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
-
-public class BoardGUI extends JPanel {
+public class GameArea extends JPanel {
 	
 	/**
 	 * 
@@ -24,24 +16,26 @@ public class BoardGUI extends JPanel {
 	
 	private int sideLength; // Side length of the square board in pixels
 	private int boardSize; // Number of cells in one side (e.g. 19 for a 19x19 board)
-	private final int cellLength; // Side length of a single cell in pixels
+	private int cellLength; // Side length of a single cell in pixels
 	
 	
-	public BoardGUI(int sideLength, int boardSize) {
+	public GameArea(int sideLength, int boardSize) {
 		this.sideLength = sideLength;
 		this.boardSize = boardSize;
-		this.cellLength  = sideLength / boardSize;
-		
-		
+		this.cellLength = sideLength / boardSize;
+		initBoard();
+	}
+
+	public void initBoard() {
 		image = new BufferedImage(sideLength, sideLength, BufferedImage.TYPE_INT_ARGB);
 		
 		g2D = (Graphics2D)image.getGraphics();
 		g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                			 RenderingHints.VALUE_ANTIALIAS_ON);
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		Color boardColor = new Color(123, 111, 222);
 		g2D.setColor(boardColor);
 		g2D.fillRect(0,0,sideLength, sideLength);
-		
+
 		g2D.setColor(Color.black);
 		for(int i=1; i<=boardSize; i++) {
 			g2D.drawLine(i*cellLength, 0, i*cellLength, sideLength);
@@ -49,18 +43,16 @@ public class BoardGUI extends JPanel {
 		for(int i=1; i<=boardSize; i++) {
 			g2D.drawLine(0, i*cellLength, sideLength, i*cellLength);
 		}
-		
-		
 	}
-	
+
 	public int getRelativePos(int x) {
 		if(x >= sideLength) x = sideLength-1;
 		
 		return (int) ( x * boardSize / sideLength );
 	}
-	public Dimension getPreferredSize() {
-		return new Dimension(sideLength, sideLength);
-	}
+//	public Dimension getPreferredSize() {
+//		return new Dimension(sideLength, sideLength);
+//	}
 	public void printWinner(int winner) {
 		FontMetrics metrics = g2D.getFontMetrics(g2D.getFont());
 		String text = winner == 2 ? "YOU WON!" : (winner == 1 ? "COMPUTER WON!" : "TIED!");

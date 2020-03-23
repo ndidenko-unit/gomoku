@@ -1,15 +1,15 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainClass {
 	
 	public static void main(String[] args) {
 		
 		// Create the MainGUI instance.
-		final int width = 760;
-		final MainGUI gui = new MainGUI(width,width, "Gomoku Unit Factory");
+		final MainGUI gui = new MainGUI("Gomoku Unit Factory");
 		
 		// Create a 19x19 game board.
+		final int width = 800;
 		Board board = new Board(width, 19);
 		
 		// Create the Game manager instance.
@@ -23,28 +23,20 @@ public class MainClass {
 		gui.setVisible(true);
 		
 		// Start listening for the Game Start button click.
-		gui.listenGameStartButton(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				
+		gui.listenGameStartButton(actionEvent -> {
 				// Get the settings from the Main GUI manager.
-				Object[] settings = gui.fetchSettings();
-				int depth = (Integer)(settings[0]);
-				boolean computerStarts = (Boolean)(settings[1]);
-				
-				System.out.println("Depth: " + depth + " AI Makes the first move: " + computerStarts );
-				
+				GameSettings settings = gui.fetchSettings();
+
+				Logger.getGlobal().log(Level.INFO, settings.toString());
 				// Make the game board visible to the user.
 				gui.showBoard();
-				
+
 				// Apply the settings.
-				game.setAIDepth(depth);
-				game.setAIStarts(computerStarts);
-				
+				game.setAIDepth(settings.getDifficulty());
+				game.setAIStarts(settings.getFirstMove() == GameSettings.FirstMove.COMPUTER);
+
 				// Start the game.
 				game.start();
-			}
-			
 		});
 	}
 }
