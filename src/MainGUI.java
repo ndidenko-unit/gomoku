@@ -30,6 +30,7 @@ public class MainGUI extends JFrame {
 		super();
 		configureChildElements();
 		setTitle(title);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(getScreenCenter(setupPanel.getPreferredSize()));
 		pack();
@@ -112,4 +113,13 @@ public class MainGUI extends JFrame {
 		validate();
 		pack();
 	}
+
+    public void restart(JPanel newBoardPanel) {
+        setLocation(getScreenCenter(setupPanel.getPreferredSize()));
+        setContentPane(setupPanel);
+	    attachBoard(newBoardPanel);
+	    invalidate();
+	    validate();
+	    pack();
+    }
 }

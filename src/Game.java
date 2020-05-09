@@ -3,7 +3,7 @@ import java.awt.event.MouseListener;
 
 
 public class Game {
-
+	private MainGUI mainGUI;
 	private Board board;
 	private boolean isPlayersTurn = true;
 	private boolean gameFinished = false;
@@ -14,7 +14,8 @@ public class Game {
 	private int winner; // 0: There is no winner yet, 1: AI Wins, 2: Human Wins
 	
 	
-	public Game(Board board) {
+	public Game(MainGUI mainGUI, Board board) {
+		this.mainGUI = mainGUI;
 		this.board = board;
 		ai = new Minimax(board);
 		
@@ -34,7 +35,10 @@ public class Game {
 		board.startListening(new MouseListener() {
 
 			public void mouseClicked(MouseEvent arg0) {
-				if(isPlayersTurn) {
+				if (gameFinished) {
+					restartGame();
+				}
+				else if (isPlayersTurn) {
 					isPlayersTurn = false;
 					// Handle the mouse click in another thread, so that we do not held the event dispatch thread busy.
 					Thread mouseClickThread = new Thread(new MouseClickHandler(arg0));
@@ -59,6 +63,16 @@ public class Game {
 			}
 		});
 	}
+
+	private void restartGame() {
+		isPlayersTurn = true;
+		gameFinished = false;
+		minimaxDepth = 3;
+		aiStarts = true;
+		winner = 0;
+		board.restart();
+		mainGUI.restart(board.getGUI());
+	}
 	/*
 	 * 	Sets the depth of the minimax tree. (i.e. how many moves ahead should the AI calculate.)
 	 */
@@ -75,8 +89,6 @@ public class Game {
 			this.e = e;
 		}
 		public void run() {
-			if(gameFinished) return;
-			
 			// Find out which cell of the board do the clicked coordinates belong to.
 			 
 			int posX = board.getRelativePos( e.getX() );

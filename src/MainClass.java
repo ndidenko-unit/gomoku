@@ -13,7 +13,7 @@ public class MainClass {
 		Board board = new Board(width, 19);
 		
 		// Create the Game manager instance.
-		final Game game = new Game(board);
+		final Game game = new Game(gui, board);
 		
 		// Attach the game board's GUI component to the main frame.
 		gui.attachBoard(board.getGUI());

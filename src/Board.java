@@ -2,17 +2,17 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
-
 public class Board {
 	
 	private GameView gui;
 	private int[][] boardMatrix; // 0: Empty 1: White 2: Black
-	
+	private int sideLength, boardSize;
 	
 	public Board(int sideLength, int boardSize) {
+		this.sideLength = sideLength;
+		this.boardSize = boardSize;
 		gui = new GameView(sideLength, boardSize);
 		boardMatrix = new int[boardSize][boardSize];
-		
 	}
 	// Fake copy constructor (only copies the boardMatrix)
 	public Board(Board board) {
@@ -40,6 +40,13 @@ public class Board {
 		return true;
 		
 	}
+
+	public void restart() {
+		gui = new GameView(sideLength, boardSize);
+		boardMatrix = new int[boardSize][boardSize];
+		gui.repaint();
+	}
+
 	public ArrayList<int[]> generateMoves() {
 		ArrayList<int[]> moveList = new ArrayList<int[]>();
 		

@@ -70,11 +70,18 @@ public class GameArea extends JPanel {
 		g2D.drawString(text,x+2,y);
 		g2D.drawString(text,x,y-2);
 		g2D.drawString(text,x,y+2);
-		
+
+		String instruction = "Click anywhere on screen to start";
+		g2D.drawString(instruction, 26, y + 60);
+		g2D.drawString(instruction, 30, y + 60);
+		g2D.drawString(instruction, 28,y + 58);
+		g2D.drawString(instruction, 28,y + 62);
+
 		g2D.setColor(winner == 2 ? Color.green : (winner == 1 ? Color.red : Color.blue));
 		
 		g2D.drawString(text,x,y);
-		
+		g2D.drawString(instruction, 28, y + 60);
+
 		repaint();
 		
 	}
